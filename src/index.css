@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Styling the scrollbar in Chrome */
+::-webkit-scrollbar {
+  width: 13px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(32, 145, 237);
+  border-radius: 1rem;
+}
+/* Styling the scrollbar in Firefox */
+::-moz-scrollbar {
+  width: 13px;
+}
+::-moz-scrollbar-thumb {
+  background-color: rgb(32, 145, 237);
+  border-radius: 1rem;
+}
+/* Styling the scrollbar in Safari */
+::-webkit-scrollbar {
+  width: 13px;
+  
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(32, 145, 237);
+  border-radius: 1rem;
+}

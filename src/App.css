@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+.App{
+  min-height: 100vh!important;
 }
 
 .App-logo {
@@ -28,6 +28,10 @@
   color: #61dafb;
 }
 
+.userPicBg{
+  background: linear-gradient(180deg, hsla(210, 79%, 46%, 1) 0%, hsla(210, 67%, 58%, 1) 23%, hsla(210, 67%, 66%, 1) 46%, hsla(210, 67%, 76%, 1) 65%, hsla(209, 67%, 83%, 1) 77%, hsla(210, 67%, 91%, 1) 99%, hsla(0, 0%, 100%, 1) 100%);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +39,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.AppRouterLinks{
+  text-decoration: none!important;
+  color:white
+}
+
+.itemCard{
+  background-color:#f7faff !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  border-radius:1rem !important;
+  margin-bottom:1rem !important;
 }
