@@ -24,11 +24,8 @@ interface Props{
 
 
 export default function Post({title,authorImg,hasImage,description,isReadOnly,imageUrl}:Props) {
-
-
-
+  
     const randomImgId = Math.floor(Math.random()*100);
-    console.log("Has IMAGE",hasImage)
   return (
     <>
     <Card sx={{ maxWidth: !isReadOnly?"90%":null,backgroundColor:"#f7faff",marginX:"auto",borderRadius:"1rem",marginBottom:'1rem'}}>   

@@ -10,15 +10,14 @@ import axios from 'axios';
 const PostsList = () => {
 
   const {type}= useParams();
-  const [posts,setPosts] = useState<PostItem[]|undefined>(undefined);
+   const [posts,setPosts] = useState<PostItem[]|undefined>(undefined);
 
   useEffect(()=>{
     axios.get<PostItem[]>(`https://jsonplaceholder.typicode.com/${type}`,{
       params: {
-        _limit: 10
+        _limit: 30
        }
     }).then(res=>{
-      
     setPosts(res.data);
     }).catch(err=>{
       console.log("error",err)
@@ -32,12 +31,14 @@ const PostsList = () => {
         
         {posts?.map(el=>{
           return  <Grid key={el.id} item xs={12} sm={6} md={6} lg={4} >
-          <Post  title={el.title} description={el.description}  hasImage={el.thumbnailUrl == undefined?false:true} imageUrl={el.thumbnailUrl} authorImg='https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg' />
+          <Post  
+          title={el.title}
+           description={el.description}
+           hasImage={el.thumbnailUrl === undefined?false:true}
+           imageUrl={el.thumbnailUrl}
+           authorImg='https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg' />
       </Grid>
-        })}
-        
-       
-        
+        })} 
         <Sidebar/>
     </Grid>
   )

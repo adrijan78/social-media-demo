@@ -2,6 +2,7 @@ import { Box, Grid } from '@mui/material'
 import UserInfo from '../components/UserInfo/UserInfo'
 import UserProfPicName from '../components/UserInfo/UserProfPicName'
 import UserMainMenu from '../components/UserInfo/UserMainMenu'
+import { Outlet } from 'react-router-dom'
 
 
 const UserProfile = () => {
@@ -17,7 +18,7 @@ const UserProfile = () => {
                 <UserInfo/>
             </Grid>
             <Grid item xs={8} sx={{backgroundColor:"white",marginX:"auto",borderRadius:"1rem",marginBottom:'1rem',height:"100%",justifyContent:'end'}}>
-                <UserMainMenu/>
+                <Outlet/>
             </Grid>
         </Grid>
     </Box>
