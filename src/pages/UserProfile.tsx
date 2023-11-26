@@ -1,7 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import UserInfo from '../components/UserInfo/UserInfo'
 import UserProfPicName from '../components/UserInfo/UserProfPicName'
-import UserMainMenu from '../components/UserInfo/UserMainMenu'
 import { Outlet } from 'react-router-dom'
 
 

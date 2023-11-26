@@ -7,8 +7,7 @@ import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import { CardHeader, Avatar, Typography } from '@mui/material';
-import { useState } from 'react';
-import Sidebar from '../Sidebar/Sidebar';
+
 
 
 
@@ -19,7 +18,6 @@ interface Props{
     description?:string
     isReadOnly?:boolean
     imageUrl?:string,
-    
 }
 
 

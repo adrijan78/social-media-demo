@@ -3,9 +3,10 @@ import App from "../App";
 import Feed from "../pages/Feed";
 import UserProfile from "../pages/UserProfile";
 import PostsList from "../components/PostsList/PostsList";
-import UserAlbumPictures from "../components/UserInfo/UserAlbumPictures";
-import UserMainMenu from "../components/UserInfo/UserMainMenu";
-import UserPosts from "../components/UserInfo/UserPosts";
+import UserAlbumPictures from "../components/UserInfo/UserAlbums/UserAlbumPictures";
+import UserMainMenu from "../components/UserInfo/UserAlbums/UserMainMenu";
+import UserPosts from "../components/UserInfo/UserPosts/UserPosts";
+import UserTodos from "../components/UserInfo/UserTodos/UserTodos";
 
 export const router = createBrowserRouter([
 
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
                 {path:':id', element:<UserAlbumPictures/>}
             ]},
             {path:'posts', element:<UserPosts/>},
+            {path:'todos', element:<UserTodos/>},
         ]},
 
     ]}

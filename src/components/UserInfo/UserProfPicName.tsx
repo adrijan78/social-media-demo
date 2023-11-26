@@ -25,7 +25,7 @@ const UserProfPicName = () => {
         <Tabs value={value} onChange={handleChange}>
         <LinkTab  component={Link} to="albums" label="Albums"/>
         <LinkTab  component={Link} to="posts" label="Posts"/>
-        <LinkTab  component={Link} to="posts" label="Todos"/>      
+        <LinkTab  component={Link} to="todos" label="Todos"/>      
         </Tabs>    
         </Grid>
      

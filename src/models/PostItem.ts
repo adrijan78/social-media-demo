@@ -5,4 +5,5 @@ export interface PostItem {
   body: string;
   thumbnailUrl?: string;
   description?: string;
+  albumId?: number;
 }
