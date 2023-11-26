@@ -1,10 +1,13 @@
-import { Avatar, Grid, Tab, Tabs, Typography } from '@mui/material'
+import { Avatar, Grid, Tab, TabProps, Tabs, Typography } from '@mui/material'
 import React from 'react'
+import { Link, LinkProps } from 'react-router-dom';
 
-type Props = {}
 
-const UserProfPicName = (props: Props) => {
-    const [value, setValue] = React.useState(2);
+
+const LinkTab: React.ComponentType<TabProps & LinkProps> = Tab as React.ComponentType<TabProps & LinkProps>;
+
+const UserProfPicName = () => {
+    const [value, setValue] = React.useState(-1);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
       };
@@ -19,18 +22,15 @@ const UserProfPicName = (props: Props) => {
         <Typography variant='h5' sx={{marginLeft:"1rem"}} color={"white"}>Test User</Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} sx={{display:'flex', alignItems:'end',justifyContent:"center"}}>
-        <Tabs value={value} onChange={handleChange} aria-label="disabled tabs example">
-        <Tab label="Albums" />
-        <Tab label="Posts"  />
-        <Tab label="Todos" />
-        </Tabs>
-    
+        <Tabs value={value} onChange={handleChange}>
+        <LinkTab  component={Link} to="albums" label="Albums"/>
+        <LinkTab  component={Link} to="posts" label="Posts"/>
+        <LinkTab  component={Link} to="todos" label="Todos"/>      
+        </Tabs>    
         </Grid>
-        
-        
+     
     </Grid>
-    
+
   )
 }
-
 export default UserProfPicName

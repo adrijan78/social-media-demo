@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import TodoSection from '../components/todoSection/TodoSection'
+import TodoSection from '../components/TodoSection/TodoSection'
 import { Outlet } from 'react-router-dom'
 
 

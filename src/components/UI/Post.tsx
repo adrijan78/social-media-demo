@@ -7,8 +7,7 @@ import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import { CardHeader, Avatar, Typography } from '@mui/material';
-import { useState } from 'react';
-import Sidebar from '../Sidebar/Sidebar';
+
 
 
 
@@ -19,16 +18,12 @@ interface Props{
     description?:string
     isReadOnly?:boolean
     imageUrl?:string,
-    
 }
 
 
 export default function Post({title,authorImg,hasImage,description,isReadOnly,imageUrl}:Props) {
-
-
-
+  
     const randomImgId = Math.floor(Math.random()*100);
-    console.log("Has IMAGE",hasImage)
   return (
     <>
     <Card sx={{ maxWidth: !isReadOnly?"90%":null,backgroundColor:"#f7faff",marginX:"auto",borderRadius:"1rem",marginBottom:'1rem'}}>   
