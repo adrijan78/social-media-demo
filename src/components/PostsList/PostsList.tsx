@@ -46,7 +46,7 @@ const PostsList = () => {
            authorImg='https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg' />
       </Grid>
         })} 
-        {/* <Sidebar/> */}
+        <Sidebar/>
     </Grid>
     
   )

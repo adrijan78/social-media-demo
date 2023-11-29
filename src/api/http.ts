@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { TodoItem } from "../models/TodoItem";
 import { PostItem } from "../models/PostItem";
 import { Comment } from "../models/Comment";
+import { url } from "inspector";
 
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
@@ -21,7 +22,7 @@ const responseBody = (response: AxiosResponse) => response.data;
 const requests = {
   get: (url: string, id?: number) =>
     axios
-      .get(id ? `${url}/${id}` : url, id ? {} : { params: { _limit: 30 } })
+      .get(id ? `${url}/${id}` : url, id ? {} : { params: { _limit: 100 } })
       .then(responseBody),
   post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
   put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
@@ -57,10 +58,15 @@ const Comments = {
   deleteComment: (commentId: number) => requests.delete(`comments`, commentId),
 };
 
+const Albums = {
+  getUserAlbums: (userId: number) => requests.get(`users/${userId}/albums`),
+};
+
 const http = {
   Todos,
   Posts,
   Comments,
+  Albums,
 };
 
 export default http;
