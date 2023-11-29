@@ -4,9 +4,10 @@ import Feed from "../pages/Feed";
 import UserProfile from "../pages/UserProfile";
 import PostsList from "../components/PostsList/PostsList";
 import UserAlbumPictures from "../components/UserInfo/UserAlbums/UserAlbumPictures";
-import UserMainMenu from "../components/UserInfo/UserAlbums/UserMainMenu";
 import UserPosts from "../components/UserInfo/UserPosts/UserPosts";
 import UserTodos from "../components/UserInfo/UserTodos/UserTodos";
+import UserAlbumsList from "../components/UserInfo/UserAlbums/UserAlbumsList";
+import UserAlbums from "../pages/UserAlbums";
 
 export const router = createBrowserRouter([
 
@@ -15,7 +16,8 @@ export const router = createBrowserRouter([
             {path:':type', element:<PostsList/>}
         ]},
         {path:'users/:id',element:<UserProfile/>, children:[
-            {path:'albums', element:<UserMainMenu/>,children:[
+            {path:'albums', element:<UserAlbums/>,children:[
+                {path:'', element:<UserAlbumsList/>},
                 {path:':id', element:<UserAlbumPictures/>}
             ]},
             {path:'posts', element:<UserPosts/>},
