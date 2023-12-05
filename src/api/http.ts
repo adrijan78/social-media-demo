@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { TodoItem } from "../models/TodoItem";
 import { PostItem } from "../models/PostItem";
 import { Comment } from "../models/Comment";
-import { url } from "inspector";
 
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
@@ -17,7 +16,7 @@ axios.interceptors.response.use(
   }
 );
 
-const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = (response: AxiosResponse) => response?.data;
 
 const requests = {
   get: (url: string, id?: number) =>
@@ -35,7 +34,7 @@ const Todos = {
   getTodoById: (id: number) => requests.get("todos", id),
   getTodosForUser: (userId: number) => requests.get(`user/${userId}/todos`),
   createTodo: (todo: TodoItem) => requests.post("todos", todo),
-  editTodo: (userId: string, todo: TodoItem) => requests.put("todos", todo),
+  editTodo: (todo: TodoItem) => requests.put(`todos/${todo.id}`, todo),
   delete: (id: number) => requests.delete("todos", id),
 };
 
