@@ -1,18 +1,21 @@
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Post from '../UI/Post';
 import Comments from '../Comments/Comments';
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import Input from '../UI/Input';
+import { usePostsStore } from '../../store/postsStore';
+
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 
-
 export default function Sidebar() {
-  const [open, setOpen] = useState(false);
+
+  const {selectedPost,openPostComments} = usePostsStore()
+  const [open, setOpen] = useState(Object.keys(selectedPost).length>0);
+  
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -33,11 +36,9 @@ export default function Sidebar() {
     <Box
     sx={{width:"100vh"}}
       role="presentation"
-      //onClick={toggleDrawer(anchor, false)}
-      //onKeyDown={toggleDrawer(anchor, false)}
     >
       <List sx={{paddingTop:'0px!important'}}>
-        <Post isReadOnly={true} hasImage={false} title="Test" description='This impressive paella is a perfect party dish and a fun meal to cook together with your guests.' authorImg='https://picsum.photos/id/1/300'/>
+        <Post  isReadOnly={true} hasImage={selectedPost.thumbnailUrl !==undefined} imageUrl={selectedPost.thumbnailUrl} title={selectedPost.title} description={selectedPost.body} authorImg='https://picsum.photos/id/1/300'/>
         <Input/>       
         <Comments/>
       </List>
@@ -46,14 +47,12 @@ export default function Sidebar() {
 
   return (
     <div>
-     
         <Fragment key="right">
-          <Button onClick={toggleDrawer("right", true)}>Right</Button>
           <SwipeableDrawer
             sx={{paddingTop:'0px!important'}}
             anchor="right"
             open={open}
-            onClose={toggleDrawer("right", false)}
+            onClose={()=>{toggleDrawer("right", false);openPostComments(-1)}}
             onOpen={toggleDrawer("right", true)}
           >
             {list("right")}
