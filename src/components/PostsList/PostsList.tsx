@@ -3,15 +3,15 @@ import Sidebar from '../Sidebar/Sidebar'
 import Post from '../UI/Post'
 import {  useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { PostItem } from '../../models/PostItem';
 import http from '../../api/http';
 import LoadingIndicator from '../UI/LoadingIndicator';
+import { usePostsStore } from '../../store/postsStore';
 
 
 const PostsList = () => {
 
   const {type}= useParams();
-   const [posts,setPosts] = useState<PostItem[]|undefined>(undefined);
+   const {posts,setPosts,selectedPost} = usePostsStore()
    const [loading,setLoading] =useState(false);
 
   useEffect(()=>{
@@ -38,7 +38,8 @@ const PostsList = () => {
         
         {!loading && posts?.map(el=>{
           return  <Grid key={el.id} item xs={12} sm={6} md={6} lg={4} >
-          <Post  
+          <Post
+          id={el.id}  
           title={el.title}
            description={el.description}
            hasImage={el.thumbnailUrl === undefined?false:true}
@@ -46,7 +47,7 @@ const PostsList = () => {
            authorImg='https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg' />
       </Grid>
         })} 
-        <Sidebar/>
+        {Object.keys(selectedPost).length>0 &&<Sidebar/>}
     </Grid>
     
   )

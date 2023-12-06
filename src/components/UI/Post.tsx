@@ -7,6 +7,7 @@ import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import { CardHeader, Avatar, Typography } from '@mui/material';
+import { usePostsStore } from '../../store/postsStore';
 
 
 
@@ -18,11 +19,14 @@ interface Props{
     description?:string
     isReadOnly?:boolean
     imageUrl?:string,
+    id?:number
 }
 
 
-export default function Post({title,authorImg,hasImage,description,isReadOnly,imageUrl}:Props) {
+export default function Post({title,authorImg,hasImage,description,isReadOnly,imageUrl,id}:Props) {
   
+    const {openPostComments}=usePostsStore();  
+
     const randomImgId = Math.floor(Math.random()*100);
   return (
     <>
@@ -50,7 +54,7 @@ export default function Post({title,authorImg,hasImage,description,isReadOnly,im
       </CardContent>
       {!isReadOnly &&<CardActions sx={{display:'flex', justifyContent:'center'}}>
         <Button  size="small"><ThumbUpRoundedIcon /></Button>
-        <Button size="small" ><ChatBubbleRoundedIcon/></Button>
+        <Button size="small" onClick={()=>openPostComments(id!)} ><ChatBubbleRoundedIcon/></Button>
         <Button size="small"><SendRoundedIcon/></Button>
       </CardActions>}
     </Card>
