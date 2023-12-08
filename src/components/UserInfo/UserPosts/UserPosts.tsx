@@ -2,23 +2,25 @@ import { Grid, Paper } from '@mui/material'
 import Sidebar from '../../Sidebar/Sidebar'
 import Post from '../../UI/Post'
 import { useEffect, useState } from 'react';
-import { PostItem } from '../../../models/PostItem';
 import http from '../../../api/http';
 import LoadingIndicator from '../../UI/LoadingIndicator';
+import { usePostsStore } from '../../../store/postsStore';
+import AddPost from '../../PostsList/AddPost/AddPost';
+import { useQuery } from 'react-query';
+import { PostItem } from '../../../models/PostItem';
 
 
 const PostsList = () => {
 
-  const [posts,setPosts] = useState<PostItem[]|undefined>(undefined);
-  const [loading,setLoading] =useState(false);
-
-  useEffect(()=>{
-    setLoading(true);
-    http.Posts.getPostsByUser(1).then(response=>{
-      setPosts(response)
-      setLoading(false);
-    })
-  },[])
+  const {posts,setPosts,selectedPost} = usePostsStore()
+  
+  const {data,isLoading:loading}=useQuery({
+    queryKey:'userPosts',
+    queryFn:()=>http.Posts.getPostsByUser(1),
+    onSuccess:(data:PostItem[])=>{
+      setPosts(data);
+    }
+  })
 
 
 
@@ -27,13 +29,24 @@ const PostsList = () => {
         
         {loading && <Grid item xs={12} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}><LoadingIndicator message={`Loading posts`}/></Grid> }
 
-        {!loading && posts?.map(el=>{
-          return  <Grid key={el.id} item xs={12} sm={6} md={6} lg={4} >
-          <Post  title={el.title} description={el.description} hasImage={false}  authorImg='https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg' />
-      </Grid>
+        {!loading && <Grid  item xs={12} sm={12} md={12} lg={12} sx={{my:'1rem',ml:'1rem'}} > <AddPost/></Grid>}
+        {!loading && posts?.map((el)=>{
+          
+            return  <Grid key={el.id} item xs={12} sm={6} md={6} lg={4} >
+          
+            <Post
+            id={el.id}  
+            title={el.title}
+             description={el.description}
+             hasImage={el.thumbnailUrl === undefined?false:true}
+             imageUrl={el.thumbnailUrl}
+             authorImg='https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg' />
+            
+            </Grid>
+          
         })}
   
-        <Sidebar/>
+  {Object.keys(selectedPost).length>0 &&<Sidebar/>}
     </Grid>
   )
 }

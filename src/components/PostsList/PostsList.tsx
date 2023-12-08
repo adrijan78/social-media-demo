@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import http from '../../api/http';
 import LoadingIndicator from '../UI/LoadingIndicator';
 import { usePostsStore } from '../../store/postsStore';
+import AddPost from './AddPost/AddPost';
 
 
 const PostsList = () => {
@@ -35,9 +36,8 @@ const PostsList = () => {
     <Grid container  component={Paper} sx={{borderRadius:"1rem", maxHeight:"82.5vh", minHeight:"82.5vh",marginTop:'0.1rem',marginX:'0.2rem',paddingTop:"1.5rem",overflowY:'auto'}}>
         
         {loading && <Grid item xs={12} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}><LoadingIndicator message={`Loading ${type}`}/></Grid> }
-        
         {!loading && posts?.map(el=>{
-          return  <Grid key={el.id} item xs={12} sm={6} md={6} lg={4} >
+          return <Grid key={el.id} item xs={12} sm={6} md={6} lg={4} >
           <Post
           id={el.id}  
           title={el.title}
