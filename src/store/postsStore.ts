@@ -26,7 +26,9 @@ const store = immer((set: any) => ({
   },
 
   addPost: (post: PostItem) => {
-    set((state: any) => state.posts.push(post), false, "addPost");
+    set((state: any) => {
+      state.posts = [post, ...state.posts];
+    });
   },
 
   openPostComments: (postId: number) => {

@@ -41,12 +41,12 @@ const Todos = {
 const Posts = {
   getAllPosts: () => requests.get("posts"),
   getAllPhotos: () => requests.get("photos"),
-  getPostsByUser: (userId: number) => requests.get(`user/${userId}/todos`),
+  getPostsByUser: (userId: number) => requests.get(`user/${userId}/posts`),
   getPhotosByUser: (userId: number) => requests.get(`user/${userId}/photos`),
-  createPost: (userId: number, post: PostItem) =>
-    requests.post(`user/${userId}/posts`, post),
-  createPhoto: (userId: number, photo: PostItem) =>
-    requests.post(`user/${userId}/photos`, photo),
+  createPost: (post: PostItem) =>
+    requests.post(`user/${post.userId}/posts`, post),
+  createPhoto: (photo: PostItem) =>
+    requests.post(`user/${photo.userId}/photos`, photo),
   deletePhoto: (photoId: number) => requests.delete("photos", photoId),
   deletePost: (postId: number) => requests.delete("posts", postId),
 };
