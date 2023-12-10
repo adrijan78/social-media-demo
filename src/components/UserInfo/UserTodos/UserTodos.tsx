@@ -4,6 +4,7 @@ import LoadingIndicator from '../../UI/LoadingIndicator';
 import { useQuery } from 'react-query';
 import { useTodosStore } from '../../../store/todoStore';
 import TodosList from './TodosList';
+import { useUsersStore } from '../../../store/usersStore';
 
 
 const UserTodos = () => {
@@ -22,10 +23,11 @@ const UserTodos = () => {
     // },[])
     
     const {setTodos}= useTodosStore();
-
+    const activeUser = useUsersStore(state=>state.currentUser)
 
     const {data,isLoading}=useQuery({
       queryKey:["todos"],
+      enabled:activeUser !==null,
       queryFn:()=>http.Todos.getTodosForUser(1),
       onSuccess: setTodos
     });

@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { TodoItem } from "../models/TodoItem";
 import { PostItem } from "../models/PostItem";
 import { Comment } from "../models/Comment";
+import { LoginUser } from "./../models/DTO/LoginUser";
 
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
@@ -61,11 +62,16 @@ const Albums = {
   getUserAlbums: (userId: number) => requests.get(`users/${userId}/albums`),
 };
 
+const Users = {
+  login: (user: any) => requests.get(`users/${user.id}`),
+};
+
 const http = {
   Todos,
   Posts,
   Comments,
   Albums,
+  Users,
 };
 
 export default http;

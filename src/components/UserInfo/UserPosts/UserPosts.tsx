@@ -8,14 +8,17 @@ import { usePostsStore } from '../../../store/postsStore';
 import AddPost from '../../PostsList/AddPost/AddPost';
 import { useQuery } from 'react-query';
 import { PostItem } from '../../../models/PostItem';
+import { useUsersStore } from '../../../store/usersStore';
 
 
 const PostsList = () => {
 
   const {posts,setPosts,selectedPost} = usePostsStore()
+  const activeUser = useUsersStore(state=>state.currentUser)
   
   const {data,isLoading:loading}=useQuery({
-    queryKey:'userPosts',
+    queryKey:['userPosts'],
+    enabled:activeUser !== null,
     queryFn:()=>http.Posts.getPostsByUser(1),
     onSuccess:(data:PostItem[])=>{
       setPosts(data);

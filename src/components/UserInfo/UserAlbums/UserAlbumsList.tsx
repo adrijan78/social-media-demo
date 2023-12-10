@@ -25,7 +25,7 @@ const UserAlbumsList = () => {
         {loading && <Grid item xs={12} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}><LoadingIndicator message={`Loading albums`}/></Grid> }
 
             {!loading && albums?.map(a=>{
-               return(<Grid item xs={12} sm={6} md={4} sx={{}}>
+               return(<Grid item xs={12} sm={6} md={4}>
              <UserAlbum {...a}/>
               </Grid>)
             })}

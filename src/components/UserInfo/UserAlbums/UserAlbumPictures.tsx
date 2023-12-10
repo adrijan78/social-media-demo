@@ -20,16 +20,16 @@ export default function UserAlbumPictures() {
   const[photos,setPhotos] = useState<PostItem[]|undefined>(undefined)
 
   const [searchParams] = useSearchParams();
-  const {id} = useParams();
+  const {id,albumId} = useParams();
 
   const title = searchParams.get("title");
 
   useEffect(()=>{
-    http.Posts.getPhotosByUser(1).then((res:PostItem[])=>{
-      var filterPhotos= res.filter(ph=>ph.albumId === parseInt(id!));
+    http.Posts.getPhotosByUser(parseInt(id!)).then((res:PostItem[])=>{
+      var filterPhotos= res.filter(ph=>ph.albumId === parseInt(albumId!));
       setPhotos(filterPhotos);
     })
-  },[id])
+  },[id,albumId])
 
   return (
     <>
