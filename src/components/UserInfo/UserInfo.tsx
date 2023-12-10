@@ -3,8 +3,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import BusinessIcon from '@mui/icons-material/Business';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import { useUsersStore } from '../../store/usersStore';
 
 const UserInfo = () => {
+  const activeUser =useUsersStore(state=>state.currentUser)
   return (
     <Box sx={{minHeight:"100%",padding:"1rem"}}>
         <Box>
@@ -15,7 +17,7 @@ const UserInfo = () => {
             </Typography>
             <Typography  color="text.secondary" gutterBottom>
               
-              Ron Jeremy
+              {activeUser.name}
               </Typography>
             </Box>
             <Divider/>
@@ -26,7 +28,7 @@ const UserInfo = () => {
             </Typography>
             <Typography  color="text.secondary" gutterBottom>
               
-              ronFcknJeremy@hotmail.com
+            {activeUser.email}
               </Typography>
             </Box>
             <Divider/>
@@ -37,7 +39,7 @@ const UserInfo = () => {
             </Typography>
             <Typography  color="text.secondary" gutterBottom>
               
-              RJEnterprice
+            {activeUser.company.name}
               </Typography>
             </Box>
             <Divider/>
@@ -48,7 +50,7 @@ const UserInfo = () => {
             </Typography>
             <Typography  color="text.secondary" gutterBottom>
               
-             070/263-122
+            {activeUser.phone}
               </Typography>
             </Box>
 

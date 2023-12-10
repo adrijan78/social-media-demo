@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { Box, TextField } from '@mui/material';
 import http from '../../../api/http';
 import { usePostsStore } from '../../../store/postsStore';
+import { useMutation, useQueryClient } from 'react-query';
+import { PostItem } from '../../../models/PostItem';
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -13,6 +15,8 @@ export interface SimpleDialogProps {
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
+
+  const queryClient = useQueryClient();
   const {addPost}=usePostsStore();
   const {register,handleSubmit,reset,formState:{errors}}=useForm({
     defaultValues:{
@@ -20,18 +24,23 @@ function SimpleDialog(props: SimpleDialogProps) {
       body:'',
     }
   });
-
-
   const { onClose, open } = props;
 
 
-  const onFormSubmit=(data:any)=>{
-    http.Posts.createPost({...data, userId:1,thumbnailUrl:undefined}).then(res=>{
-      console.log("Response", res);
-      addPost(res);
+ const {mutate}= useMutation({
+    mutationFn: http.Posts.createPost,
+    onSuccess:(data:PostItem,variables)=>{
+     queryClient.invalidateQueries({queryKey:['userPosts']}).then(_=>{
+      addPost(data);
+     })
       reset();
       onClose();
-    }).catch(err=>{console.log("Errors", err)});
+    }
+  })
+
+
+  const onFormSubmit=(data:any)=>{
+   mutate({...data, userId:1,thumbnailUrl:undefined})  
   }
 
   return (
@@ -54,7 +63,7 @@ function SimpleDialog(props: SimpleDialogProps) {
 
         </Box>
         <Box sx={{display:'flex', justifyContent:'end',marginBottom:'0.5rem', marginRight:'1rem'}}>
-            <Button type='button' sx={{mr:'0.5rem'}}>Close</Button>
+            <Button type='button' sx={{mr:'0.5rem'}} onClick={()=>{onClose();reset()}}>Close</Button>
             <Button type='submit' variant='contained'>Submit</Button>
         </Box>
         

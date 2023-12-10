@@ -12,9 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
+import { useUsersStore } from '../store/usersStore';
 
 
 function Navbar() {
+  const {currentUser,logoutUser}=useUsersStore()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -85,12 +87,12 @@ function Navbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <NavLink to="/feed/photos" className='AppRouterLinks'>
+              <NavLink to="/home/feed/photos" className='AppRouterLinks'>
               <MenuItem  onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" color={'primary'}>Photos</Typography>
                 </MenuItem>
               </NavLink>
-              <NavLink to="/feed/posts" className='AppRouterLinks'>
+              <NavLink to="/home/feed/posts" className='AppRouterLinks'>
               <MenuItem  onClick={handleCloseNavMenu}>
                   <Typography textAlign="center" color={'primary'}>Posts</Typography>
                 </MenuItem>
@@ -118,8 +120,8 @@ function Navbar() {
           </Typography>
           </NavLink>
           
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex',lg:'flex',justifyContent:'center',paddingRight:"6rem" } }}>
-              <NavLink to="/feed/photos" className='AppRouterLinks'>
+          {currentUser && <> <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex',lg:'flex',justifyContent:'center',paddingRight:"6rem" } }}>
+              <NavLink to="/home/feed/photos" className='AppRouterLinks'>
               <Button
                 
                 onClick={handleCloseNavMenu}
@@ -127,7 +129,7 @@ function Navbar() {
               >
                 Photos
               </Button></NavLink>      
-              <NavLink to="/feed/posts" className='AppRouterLinks'>
+              <NavLink to="/home/feed/posts" className='AppRouterLinks'>
               <Button
                 
                 onClick={handleCloseNavMenu}
@@ -138,44 +140,46 @@ function Navbar() {
                 
           </Box>
 
+          
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-             <NavLink to="/users/1" className='AppRouterLinks'>
-             <MenuItem  onClick={handleCloseUserMenu}>
-                  <Typography textAlign="end" color={'primary'}>Profile</Typography>
-                </MenuItem>
-                
-              </NavLink>  
-              <NavLink to="/" className='AppRouterLinks'>
-             <MenuItem  onClick={handleCloseUserMenu}>
-                  <Typography textAlign="end" color={'primary'}>Logout</Typography>
-                </MenuItem>
-                
-              </NavLink>  
-                
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Typography sx={{right:'3rem', position:'absolute',}} color={'white'}>{currentUser.email}</Typography>
+              <Avatar alt={currentUser.name} src="https://as2.ftcdn.net/v2/jpg/01/30/53/55/1000_F_130535564_3CC9bg4wBN6ghjMiPW1xWBXrUtPCQJAJ.jpg" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+           <NavLink to={`/home/users/${currentUser.id}`} className='AppRouterLinks'>
+           <MenuItem  onClick={handleCloseUserMenu}>
+                <Typography textAlign="end" color={'primary'}>Profile</Typography>
+              </MenuItem>
               
-            </Menu>
-          </Box>
+            </NavLink>  
+            <NavLink to="/login" className='AppRouterLinks' onClick={logoutUser}>
+           <MenuItem  onClick={handleCloseUserMenu}>
+                <Typography textAlign="end" color={'primary'} >Logout</Typography>
+              </MenuItem>
+              
+            </NavLink>  
+              
+            
+          </Menu>
+        </Box></>}
         </Toolbar>
       </Container>
     </AppBar>

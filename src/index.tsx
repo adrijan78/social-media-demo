@@ -8,14 +8,18 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/routes';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
     <RouterProvider router={router}/>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

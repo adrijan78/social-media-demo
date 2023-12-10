@@ -1,18 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import {Outlet } from 'react-router-dom';
 import './App.css';
 import Navbar from './layout/Navbar';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useUsersStore } from './store/usersStore';
+import PrivateRoute from './routes/privateRoute';
 
-const queryClient = new QueryClient();
+
 
 function App() {
+  
   return (
-    <QueryClientProvider client={queryClient}>
+    
       <div className="App" style={{backgroundColor:'#ebebeb'}}>
       <Navbar/>
-      <Outlet/>
+      <PrivateRoute/>
     </div>
-    </QueryClientProvider>
     
   );
 }
